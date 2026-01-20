@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   title: 'Sistema de Tickets TI',
   description: 'Sistema de gestion de tickets de soporte tecnico para mesa de ayuda TI',
   generator: 'v0.app',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
   icons: {
     icon: [
       {
