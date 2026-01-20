@@ -2,11 +2,12 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Lock, Loader2, AlertCircle } from 'lucide-react'
+import { Lock, Loader2, AlertCircle, ArrowLeft } from 'lucide-react'
 
 export function AdminLogin() {
   const router = useRouter()
@@ -40,7 +41,7 @@ export function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
@@ -86,6 +87,13 @@ export function AdminLogin() {
           </form>
         </CardContent>
       </Card>
+      
+      <Link href="/" className="mt-6">
+        <Button variant="ghost" className="text-muted-foreground">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Volver al Inicio
+        </Button>
+      </Link>
     </div>
   )
 }

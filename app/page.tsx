@@ -79,19 +79,9 @@ export default function HomePage() {
           </div>
 
           {/* Info */}
-          <div className="grid sm:grid-cols-3 gap-6 text-center w-full pt-8 border-t border-border">
-            <div>
-              <p className="text-3xl font-bold text-primary">4</p>
-              <p className="text-sm text-muted-foreground mt-1">Sedes Activas</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-primary">24/7</p>
-              <p className="text-sm text-muted-foreground mt-1">Soporte Disponible</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-primary">{'<'}4h</p>
-              <p className="text-sm text-muted-foreground mt-1">Tiempo de Respuesta</p>
-            </div>
+          <div className="text-center w-full pt-8 border-t border-border">
+            <p className="text-3xl font-bold text-primary">4</p>
+            <p className="text-sm text-muted-foreground mt-1">Sedes Activas</p>
           </div>
         </div>
       </main>

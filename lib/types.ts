@@ -1,4 +1,4 @@
-export type Sede = 'Norte' | 'Sur' | 'Central' | 'Administrativa'
+export type Sede = 'Interfibra' | 'Jaltextiles' | 'Ribel' | 'Hiltexpoy'
 export type Categoria = 'Hardware' | 'Software' | 'Redes' | 'Accesos'
 export type Prioridad = 'Baja' | 'Media' | 'Alta'
 export type Estado = 'Pendiente' | 'En Proceso' | 'Resuelto'
@@ -22,7 +22,7 @@ export interface Ticket {
   notas: NotaTecnica[]
 }
 
-export const SEDES: Sede[] = ['Norte', 'Sur', 'Central', 'Administrativa']
+export const SEDES: Sede[] = ['Interfibra', 'Jaltextiles', 'Ribel', 'Hiltexpoy']
 export const CATEGORIAS: Categoria[] = ['Hardware', 'Software', 'Redes', 'Accesos']
 export const PRIORIDADES: Prioridad[] = ['Baja', 'Media', 'Alta']
 export const ESTADOS: Estado[] = ['Pendiente', 'En Proceso', 'Resuelto']
