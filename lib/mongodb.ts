@@ -1,8 +1,14 @@
-import { MongoClient, Db } from 'mongodb'
+import { MongoClient, Db, MongoClientOptions } from 'mongodb'
 
 // Permitir build sin MONGODB_URI (Vercel inyecta las env vars después del build)
 const uri = process.env.MONGODB_URI || ''
-const options = {}
+
+// Opciones de conexión con TLS configurado para serverless
+const options: MongoClientOptions = {
+  maxPoolSize: 10,
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
+}
 
 let client: MongoClient
 let clientPromise: Promise<MongoClient>
