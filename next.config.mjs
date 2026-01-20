@@ -1,12 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  // Optimizaciones para producción
+  poweredByHeader: false,
+  
+  // Optimización de imágenes
   images: {
-    unoptimized: true,
+    formats: ['image/avif', 'image/webp'],
   },
- 
+  
+  // Logging en producción
+  logging: {
+    fetches: {
+      fullUrl: process.env.NODE_ENV === 'development',
+    },
+  },
 }
 
 export default nextConfig
