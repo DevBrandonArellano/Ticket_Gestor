@@ -1,5 +1,5 @@
 import React from "react"
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -8,15 +8,16 @@ import './globals.css'
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+}
+
 export const metadata: Metadata = {
   title: 'Sistema de Tickets TI',
   description: 'Sistema de gestion de tickets de soporte tecnico para mesa de ayuda TI',
   generator: 'v0.app',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
   icons: {
     icon: [
       {
