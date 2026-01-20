@@ -1,7 +1,8 @@
 import { TicketForm } from '@/components/ticket-form'
 import { ThemeToggle } from '@/components/theme-toggle'
-import { TicketIcon } from 'lucide-react'
+import { TicketIcon, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 export default function NuevoTicketPage() {
   return (
@@ -11,6 +12,11 @@ export default function NuevoTicketPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
+              <Link href="/">
+                <Button variant="ghost" size="icon" className="mr-2">
+                  <ArrowLeft className="h-5 w-5" />
+                </Button>
+              </Link>
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
                 <TicketIcon className="h-5 w-5 text-primary-foreground" />
               </div>
@@ -19,15 +25,7 @@ export default function NuevoTicketPage() {
                 <p className="text-xs text-muted-foreground">Sistema de Tickets</p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <Link 
-                href="/admin"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Acceso Admin
-              </Link>
-              <ThemeToggle />
-            </div>
+            <ThemeToggle />
           </div>
         </div>
       </header>

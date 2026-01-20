@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { TicketIcon, PlusCircle, LayoutDashboard, ArrowRight } from 'lucide-react'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function HomePage() {
   return (
@@ -9,14 +10,17 @@ export default function HomePage() {
       {/* Header */}
       <header className="border-b border-border bg-card/50">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
-              <TicketIcon className="h-5 w-5 text-primary-foreground" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
+                <TicketIcon className="h-5 w-5 text-primary-foreground" />
+              </div>
+              <div>
+                <h1 className="font-semibold text-lg">Mesa de Ayuda TI</h1>
+                <p className="text-xs text-muted-foreground">Sistema de Gestion de Tickets</p>
+              </div>
             </div>
-            <div>
-              <h1 className="font-semibold text-lg">Mesa de Ayuda TI</h1>
-              <p className="text-xs text-muted-foreground">Sistema de Gestion de Tickets</p>
-            </div>
+            <ThemeToggle />
           </div>
         </div>
       </header>
