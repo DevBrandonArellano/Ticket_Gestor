@@ -46,8 +46,8 @@ export default function NuevoTicketPage() {
           <TicketForm />
 
           <p className="text-xs text-muted-foreground text-center max-w-sm">
-            Si tienes una emergencia critica, contacta directamente al 
-            extension 1234 o envia un correo a soporte@empresa.com
+            Si tienes una emergencia contacta directamente con el administrador 
+            o mediante el correo: sistemas@interfibra.com.ec
           </p>
         </div>
       </main>
