@@ -12,7 +12,6 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { PriorityBadge, StatusBadge } from './priority-badge'
 import { Ticket, ESTADOS, Estado } from '@/lib/types'
 import { 
@@ -42,7 +41,6 @@ export function TicketDetailSheet({ ticket, open, onOpenChange, onUpdate }: Tick
   const [loadingEstado, setLoadingEstado] = useState(false)
   const [loadingNota, setLoadingNota] = useState(false)
 
-  // Reset state when ticket changes
   useEffect(() => {
     if (ticket) {
       setEstado(ticket.estado)
@@ -99,11 +97,11 @@ export function TicketDetailSheet({ ticket, open, onOpenChange, onUpdate }: Tick
   const getEstadoColor = (estado: Estado) => {
     switch (estado) {
       case 'Pendiente':
-        return 'bg-orange-500/10 border-orange-500/30 text-orange-600 dark:text-orange-400'
+        return 'bg-orange-500/10 border-orange-500/30'
       case 'En Proceso':
-        return 'bg-blue-500/10 border-blue-500/30 text-blue-600 dark:text-blue-400'
+        return 'bg-blue-500/10 border-blue-500/30'
       case 'Resuelto':
-        return 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400'
+        return 'bg-emerald-500/10 border-emerald-500/30'
       default:
         return 'bg-muted border-border'
     }
@@ -113,199 +111,164 @@ export function TicketDetailSheet({ ticket, open, onOpenChange, onUpdate }: Tick
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="w-full sm:max-w-xl lg:max-w-2xl p-0 flex flex-col gap-0 border-l-0 sm:border-l">
-        {/* Header con gradiente */}
+      <SheetContent className="w-full sm:max-w-md lg:max-w-lg p-0 flex flex-col gap-0 border-l-0 sm:border-l overflow-hidden">
+        {/* Header compacto */}
         <div className="shrink-0 bg-gradient-to-br from-primary/5 via-background to-primary/10 border-b">
-          <SheetHeader className="p-4 sm:p-6">
-            {/* Número del ticket destacado */}
-            <div className="flex items-center gap-2 mb-3">
-              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 rounded-full">
-                <Hash className="h-3.5 w-3.5 text-primary" />
-                <span className="text-sm font-mono font-semibold text-primary">{ticket.numero}</span>
+          <SheetHeader className="p-3 sm:p-4">
+            {/* Número y badges en una línea */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1 px-2 py-1 bg-primary/10 rounded-full">
+                <Hash className="h-3 w-3 text-primary" />
+                <span className="text-xs font-mono font-semibold text-primary">{ticket.numero}</span>
               </div>
+              <PriorityBadge prioridad={ticket.prioridad} />
+              <StatusBadge estado={ticket.estado} />
             </div>
             
-            {/* Título y badges */}
-            <div className="flex flex-col gap-3">
-              <SheetTitle className="text-xl sm:text-2xl font-bold text-left leading-tight">
-                {ticket.categoria}
-              </SheetTitle>
-              <div className="flex flex-wrap gap-2">
-                <PriorityBadge prioridad={ticket.prioridad} />
-                <StatusBadge estado={ticket.estado} />
-              </div>
-            </div>
+            {/* Título */}
+            <SheetTitle className="text-base sm:text-lg font-bold text-left leading-tight mt-2">
+              {ticket.categoria}
+            </SheetTitle>
           </SheetHeader>
         </div>
 
         {/* Contenido scrolleable */}
         <ScrollArea className="flex-1">
-          <div className="p-4 sm:p-6 flex flex-col gap-4 sm:gap-6">
+          <div className="p-3 sm:p-4 flex flex-col gap-3">
             
-            {/* Info del solicitante - Card compacta */}
-            <Card className="bg-muted/30 border-border/50">
-              <CardContent className="p-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                      <User className="h-4 w-4 text-primary" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-xs text-muted-foreground">Solicitante</p>
-                      <p className="text-sm font-medium truncate">{ticket.nombre}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-500/10">
-                      <Building2 className="h-4 w-4 text-blue-500" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-xs text-muted-foreground">Sede</p>
-                      <p className="text-sm font-medium truncate">{ticket.sede}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-purple-500/10">
-                      <Tag className="h-4 w-4 text-purple-500" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-xs text-muted-foreground">Categoría</p>
-                      <p className="text-sm font-medium truncate">{ticket.categoria}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-500/10">
-                      <Calendar className="h-4 w-4 text-amber-500" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-xs text-muted-foreground">Fecha de Creación</p>
-                      <p className="text-sm font-medium">{formatDate(ticket.fechaCreacion)}</p>
-                    </div>
-                  </div>
+            {/* Info del solicitante - Grid compacto */}
+            <div className="grid grid-cols-2 gap-2 p-3 bg-muted/30 rounded-lg border border-border/50">
+              <div className="flex items-center gap-2">
+                <User className="h-3.5 w-3.5 text-primary shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-[10px] text-muted-foreground uppercase">Solicitante</p>
+                  <p className="text-xs font-medium truncate">{ticket.nombre}</p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <Building2 className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-[10px] text-muted-foreground uppercase">Sede</p>
+                  <p className="text-xs font-medium truncate">{ticket.sede}</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <Tag className="h-3.5 w-3.5 text-purple-500 shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-[10px] text-muted-foreground uppercase">Categoría</p>
+                  <p className="text-xs font-medium truncate">{ticket.categoria}</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <Calendar className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-[10px] text-muted-foreground uppercase">Creado</p>
+                  <p className="text-xs font-medium truncate">{formatDate(ticket.fechaCreacion)}</p>
+                </div>
+              </div>
+            </div>
 
-            {/* Descripción */}
-            <Card className="border-border/50">
-              <CardHeader className="pb-3 pt-4 px-4">
-                <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary/10">
-                    <FileText className="h-3.5 w-3.5 text-primary" />
-                  </div>
-                  <span className="text-sm font-semibold">Descripción del Problema</span>
-                </div>
-              </CardHeader>
-              <CardContent className="px-4 pb-4">
-                <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
-                  {ticket.descripcion}
-                </p>
-              </CardContent>
-            </Card>
+            {/* Descripción - Compacta */}
+            <div className="p-3 bg-muted/20 rounded-lg border border-border/50">
+              <div className="flex items-center gap-1.5 mb-2">
+                <FileText className="h-3.5 w-3.5 text-primary" />
+                <span className="text-xs font-semibold">Descripción</span>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                {ticket.descripcion}
+              </p>
+            </div>
 
-            {/* Cambiar Estado */}
-            <Card className={`transition-colors duration-200 ${getEstadoColor(ticket.estado)}`}>
-              <CardHeader className="pb-3 pt-4 px-4">
-                <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-background/50">
-                    <Sparkles className="h-3.5 w-3.5" />
-                  </div>
-                  <span className="text-sm font-semibold">Gestionar Estado</span>
-                </div>
-              </CardHeader>
-              <CardContent className="px-4 pb-4">
-                <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
-                  <Label className="text-sm shrink-0">Cambiar a:</Label>
-                  <div className="flex gap-2 flex-1">
-                    <Select
-                      value={estado || ticket.estado}
-                      onValueChange={(value) => {
-                        setEstado(value as Estado)
-                        handleEstadoChange(value as Estado)
-                      }}
-                      disabled={loadingEstado}
-                    >
-                      <SelectTrigger className="flex-1 bg-background/80">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {ESTADOS.map((e) => (
-                          <SelectItem key={e} value={e}>
-                            {e}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {loadingEstado && <Loader2 className="h-4 w-4 animate-spin self-center shrink-0" />}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Notas Técnicas */}
-            <Card className="border-border/50">
-              <CardHeader className="pb-3 pt-4 px-4">
-                <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-500/10">
-                    <MessageSquarePlus className="h-3.5 w-3.5 text-emerald-500" />
-                  </div>
-                  <span className="text-sm font-semibold">Notas Técnicas</span>
-                  {ticket.notas.length > 0 && (
-                    <span className="ml-auto text-xs bg-muted px-2 py-0.5 rounded-full">
-                      {ticket.notas.length}
-                    </span>
-                  )}
-                </div>
-              </CardHeader>
-              <CardContent className="px-4 pb-4 flex flex-col gap-4">
-                {/* Lista de notas existentes */}
-                {ticket.notas.length > 0 ? (
-                  <div className="flex flex-col gap-2 max-h-48 overflow-y-auto">
-                    {ticket.notas.map((nota) => (
-                      <div 
-                        key={nota.id} 
-                        className="bg-muted/50 p-3 rounded-lg border border-border/50 transition-colors hover:bg-muted/70"
-                      >
-                        <p className="text-sm text-foreground leading-relaxed">{nota.contenido}</p>
-                        <div className="flex items-center gap-1.5 mt-2 text-xs text-muted-foreground">
-                          <Clock className="h-3 w-3" />
-                          {formatDate(nota.fecha)}
-                        </div>
-                      </div>
+            {/* Cambiar Estado - Compacto */}
+            <div className={`p-3 rounded-lg border transition-colors ${getEstadoColor(ticket.estado)}`}>
+              <div className="flex items-center gap-1.5 mb-2">
+                <Sparkles className="h-3.5 w-3.5" />
+                <span className="text-xs font-semibold">Gestionar Estado</span>
+              </div>
+              <div className="flex gap-2 items-center">
+                <Label className="text-xs shrink-0">Cambiar a:</Label>
+                <Select
+                  value={estado || ticket.estado}
+                  onValueChange={(value) => {
+                    setEstado(value as Estado)
+                    handleEstadoChange(value as Estado)
+                  }}
+                  disabled={loadingEstado}
+                >
+                  <SelectTrigger className="flex-1 h-8 text-xs bg-background/80">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ESTADOS.map((e) => (
+                      <SelectItem key={e} value={e} className="text-xs">
+                        {e}
+                      </SelectItem>
                     ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground italic">No hay notas registradas.</p>
-                )}
+                  </SelectContent>
+                </Select>
+                {loadingEstado && <Loader2 className="h-3.5 w-3.5 animate-spin shrink-0" />}
+              </div>
+            </div>
 
-                {/* Agregar nueva nota */}
-                <div className="flex flex-col gap-3 pt-2 border-t border-border/50">
-                  <Textarea
-                    placeholder="Escribe una nota técnica sobre el progreso o solución..."
-                    rows={3}
-                    value={nota}
-                    onChange={(e) => setNota(e.target.value)}
-                    className="resize-none"
-                  />
-                  <Button 
-                    onClick={handleAddNota} 
-                    disabled={loadingNota || !nota.trim()}
-                    className="w-full sm:w-auto sm:self-end"
-                    size="sm"
-                  >
-                    {loadingNota ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                      <Send className="mr-2 h-4 w-4" />
-                    )}
-                    Agregar Nota
-                  </Button>
+            {/* Notas Técnicas - Compacto */}
+            <div className="p-3 rounded-lg border border-border/50">
+              <div className="flex items-center gap-1.5 mb-2">
+                <MessageSquarePlus className="h-3.5 w-3.5 text-emerald-500" />
+                <span className="text-xs font-semibold">Notas Técnicas</span>
+                {ticket.notas.length > 0 && (
+                  <span className="ml-auto text-[10px] bg-muted px-1.5 py-0.5 rounded-full">
+                    {ticket.notas.length}
+                  </span>
+                )}
+              </div>
+              
+              {/* Lista de notas */}
+              {ticket.notas.length > 0 ? (
+                <div className="flex flex-col gap-1.5 max-h-24 overflow-y-auto mb-2">
+                  {ticket.notas.map((nota) => (
+                    <div 
+                      key={nota.id} 
+                      className="bg-muted/50 p-2 rounded-md border border-border/50 text-xs"
+                    >
+                      <p className="text-foreground leading-relaxed">{nota.contenido}</p>
+                      <div className="flex items-center gap-1 mt-1 text-[10px] text-muted-foreground">
+                        <Clock className="h-2.5 w-2.5" />
+                        {formatDate(nota.fecha)}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </CardContent>
-            </Card>
+              ) : (
+                <p className="text-xs text-muted-foreground italic mb-2">Sin notas.</p>
+              )}
+
+              {/* Agregar nota */}
+              <div className="flex flex-col gap-2 pt-2 border-t border-border/50">
+                <Textarea
+                  placeholder="Escribe una nota técnica..."
+                  rows={2}
+                  value={nota}
+                  onChange={(e) => setNota(e.target.value)}
+                  className="resize-none text-xs min-h-[50px]"
+                />
+                <Button 
+                  onClick={handleAddNota} 
+                  disabled={loadingNota || !nota.trim()}
+                  className="w-full sm:w-auto sm:self-end"
+                  size="sm"
+                >
+                  {loadingNota ? (
+                    <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+                  ) : (
+                    <Send className="mr-1.5 h-3.5 w-3.5" />
+                  )}
+                  Agregar Nota
+                </Button>
+              </div>
+            </div>
           </div>
         </ScrollArea>
       </SheetContent>
